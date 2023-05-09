@@ -12,31 +12,27 @@
     left: 20,
   };
 
-  let svg;
   let width = 500;
   let height = 500;
-  $: mainWidth = width - margins.right - margins.left;
-  $: mainHeight = height - margins.top - margins.bottom;
+
+  // value extents
+  $: xExtent = [0, d3.max(data, xAccessor)];
+  $: yExtent = [0, d3.max(data, yAccessor)];
 
   // scales
-  let xScale = d3
+  $: xScale = d3
     .scaleLinear()
-    .domain([0, 20])
+    .domain(xExtent)
     .range([margins.left, width - margins.right]);
 
-  let yScale = d3
+  $: yScale = d3
     .scaleLinear()
-    .domain([0, 20])
+    .domain(yExtent)
     .range([height - margins.bottom, margins.top]);
-
-  $: {
-    if (data) {
-      console.log("debug", xScale(1));
-    }
-  }
 </script>
 
-<svg bind:this={svg}>
+<!-- <svg bind:this={svg}> -->
+<svg {width} {height}>
   {#if data}
     {#each data as point}
       <circle
@@ -50,8 +46,9 @@
 
 <style>
   svg {
-    width: 100%;
-    height: 100%;
+    background-color: white;
+    /* width: 100%;
+    height: 100%; */
   }
 
   circle {

@@ -3,7 +3,7 @@
   import * as d3 from "d3";
   import Scatterplot from "./lib/Scatterplot.svelte";
 
-  let data;
+  let data = undefined;
 
   onMount(async () => {
     console.log("load data");
@@ -18,23 +18,23 @@
         };
       });
     });
-    console.log("data", data);
   });
 </script>
 
 <div class="container">
-  {#if data}
-    <Scatterplot
-      {data}
-      xAccessor={(d) => d.petal_length}
-      yAccessor={(d) => d.petal_width}
-    />
-  {/if}
+  <!-- {JSON.stringify(data)} -->
+
+  <Scatterplot
+    {data}
+    xAccessor={(d) => d.petal_length}
+    yAccessor={(d) => d.petal_width}
+  />
 </div>
 
 <style>
   .container {
-    width: 100%;
-    height: 100%;
+    background-color: lightgray;
+    width: 100vw;
+    height: 100vh;
   }
 </style>
