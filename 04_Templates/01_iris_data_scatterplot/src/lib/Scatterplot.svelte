@@ -1,5 +1,6 @@
 <script>
-  import * as d3 from "d3";
+  import { max } from "d3-array";
+  import { scaleLinear } from "d3-scale";
 
   export let data;
   export let xAccessor;
@@ -16,17 +17,15 @@
   let height = 500;
 
   // value extents
-  $: xExtent = [0, d3.max(data, xAccessor)];
-  $: yExtent = [0, d3.max(data, yAccessor)];
+  $: xExtent = data ? [0, max(data, xAccessor)] : [0, 10];
+  $: yExtent = data ? [0, max(data, yAccessor)] : [0, 10];
 
   // scales
-  $: xScale = d3
-    .scaleLinear()
+  $: xScale = scaleLinear()
     .domain(xExtent)
     .range([margins.left, width - margins.right]);
 
-  $: yScale = d3
-    .scaleLinear()
+  $: yScale = scaleLinear()
     .domain(yExtent)
     .range([height - margins.bottom, margins.top]);
 </script>
@@ -47,8 +46,6 @@
 <style>
   svg {
     background-color: white;
-    /* width: 100%;
-    height: 100%; */
   }
 
   circle {

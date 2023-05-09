@@ -1,13 +1,13 @@
 <script>
   import { onMount } from "svelte";
-  import * as d3 from "d3";
+  import { csv } from "d3-fetch";
   import Scatterplot from "./lib/Scatterplot.svelte";
 
   let data = undefined;
 
   onMount(async () => {
     console.log("load data");
-    data = await d3.csv("../sample_data/iris.csv").then((data) => {
+    data = await csv("../sample_data/iris.csv").then((data) => {
       return data.map((d) => {
         return {
           petal_length: +d["petal.length"],
