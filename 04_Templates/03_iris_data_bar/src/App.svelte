@@ -2,11 +2,11 @@
   import { onMount } from "svelte";
   import { csv } from "d3-fetch";
   import Scatterplot from "./lib/Scatterplot.svelte";
+  import Barchart from "./lib/Barchart.svelte";
 
-  let data = undefined;
+  let data;
 
   onMount(async () => {
-    console.log("load data");
     data = await csv("../sample_data/iris.csv").then((data) => {
       return data.map((d) => {
         return {
@@ -23,13 +23,14 @@
 
 <div class="container">
   <!-- {JSON.stringify(data)} -->
-  <!-- test -->
 
-  <Scatterplot
+  <!-- <Scatterplot
     {data}
     xAccessor={(d) => d.petal_length}
     yAccessor={(d) => d.petal_width}
-  />
+  /> -->
+
+  <Barchart {data} xAccessor={(d) => d.petal_length} />
 </div>
 
 <style>
