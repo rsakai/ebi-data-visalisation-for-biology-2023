@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
   import Flower from "./lib/Flower.svelte";
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
 
   const get_xy = function (idx) {
     let y = 25 + Math.floor(idx / 20) * 50;
@@ -9,11 +9,13 @@
     return [x, y];
   };
   console.log("App.svelte --- ");
-  let datapoints;
 
-  // @ts-ignore
-  // odd behaviour TODO
-  $: datapoints = typeof data !== "undefined" ? data : [];
+  $: datapoints = [];
+  onMount(() => {
+    setTimeout(() => {
+      datapoints = window.data;
+    }, 0);
+  });
 </script>
 
 <div>
@@ -31,5 +33,6 @@
 <style>
   div {
     background-color: white;
+    color: red;
   }
 </style>

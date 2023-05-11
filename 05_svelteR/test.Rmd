@@ -1,0 +1,27 @@
+---
+title: "test"
+author: "Ryo"
+date: '2023-05-10'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## svelteR
+
+https://jmbuhr.de/svelteR/
+
+```{r}
+svelteR::include_svelte(name = "svelte-app",
+                        path = "svelte-app/docs",
+                        props = list(name = "First"))
+```
+
+```{r}
+svelteR::include_svelte(name = "svelte-app",
+                        path = "../inst/svelte-app/docs",
+                        props = list(name = "First"))
+```
+
